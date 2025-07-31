@@ -9,6 +9,16 @@
 </head>
 
 <body>
+    <button id="delete-chat">Delete Chat</button>
+
+    <!-- 🆕 Sidebar container -->
+    <div class="sidebar">
+        <button id="new-chat-btn">+ New Chat</button>
+        <div id="chat-list">
+            <!-- Previous chats will appear here -->
+        </div>
+    </div>
+
     <div class="main-container">
         <h1 class="heading">What's on your mind today?</h1>
 
@@ -16,10 +26,19 @@
             <!-- Messages will appear here -->
         </div>
 
+        <!-- 💬 Text + submit form -->
         <form id="chat-form">
             <input type="text" id="user-input" placeholder="Ask anything" autocomplete="off" required />
             <button type="submit" aria-label="Send message">➤</button>
         </form>
+
+        <!-- 📁 Image input and preview (below the form) -->
+        <input type="file" id="image-input" accept="image/*" />
+
+        <div id="image-preview" style="display: none;">
+            <p>📷 Image attached:</p>
+            <img id="preview-img" src="" alt="Preview" />
+        </div>
     </div>
 
     <script src="script.js"></script>

@@ -33,7 +33,6 @@ body {
     margin-bottom: 20px;
     background-color: #1e1e1e;
     display: none;
-    /* 👈 hides the box until needed */
 }
 
 .message {
@@ -45,7 +44,7 @@ body {
 
 .user {
     align-self: flex-end;
-    background-color: #007bff;
+    background-color: #333;
     color: white;
     text-align: right;
 }
@@ -85,4 +84,116 @@ button {
     font-size: 20px;
     padding: 0 20px;
     cursor: pointer;
+}
+
+/* ✅ New styles for image input and preview */
+#image-input {
+    margin-top: 10px;
+    width: 100%;
+    color: rgb(73, 71, 71);
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+#image-preview {
+    margin-top: 10px;
+    width: 100%;
+}
+
+#preview-img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+#delete-chat {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #5e5c5c;
+    /* light gray */
+    color: #333;
+    /* dark text */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* subtle shadow */
+}
+
+#delete-chat:active {
+    background-color: #c9c9c9;
+    /* even darker when clicked */
+    transform: translateY(0);
+}
+
+/* 🌑 Dark Sidebar Container */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background-color: #1e1e1e;
+    /* Dark gray */
+    border-right: 1px solid #333;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: white;
+}
+
+/* ✨ New Chat Button (dark styled) */
+#new-chat-btn {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #343541;
+    /* similar to ChatGPT sidebar button */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#new-chat-btn:hover {
+    background-color: #444654;
+}
+
+/* 📃 Chat list section */
+#chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Chat entry buttons (each chat) */
+.chat-entry {
+    background-color: #2e2f3a;
+    padding: 8px 12px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.chat-entry:hover {
+    background-color: #3d3f4a;
+}
+
+/* Push main container right to make space for sidebar */
+.main-container {
+    margin-left: 240px;
+    /* width of sidebar + spacing */
+    padding: 20px;
 }
