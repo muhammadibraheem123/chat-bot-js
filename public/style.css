@@ -15,6 +15,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
+    position: relative;
+    left: 110px;
+    /* Center shift for sidebar (220px / 2) */
 }
 
 .heading {
@@ -57,11 +61,14 @@ body {
 
 form {
     display: flex;
+    align-items: center;
     width: 100%;
     background-color: #1e1e1e;
     border: 1px solid #333;
     border-radius: 25px;
     overflow: hidden;
+    padding: 5px 10px;
+    gap: 10px;
 }
 
 input[type="text"] {
@@ -69,7 +76,7 @@ input[type="text"] {
     background: transparent;
     border: none;
     color: white;
-    padding: 15px;
+    padding: 15px 10px;
     font-size: 16px;
 }
 
@@ -77,27 +84,99 @@ input:focus {
     outline: none;
 }
 
-button {
+button[type="submit"] {
     background: transparent;
     border: none;
     color: white;
     font-size: 20px;
-    padding: 0 20px;
+    padding: 0 10px;
     cursor: pointer;
 }
 
-/* ✅ New styles for image input and preview */
+/* Image upload styles */
 #image-input {
-    margin-top: 10px;
-    width: 100%;
-    color: rgb(73, 71, 71);
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 14px;
+    display: none;
 }
 
+.upload-icon {
+    font-size: 22px;
+    font-weight: bold;
+    /* Makes plus icon bold */
+    padding: 6px 10px;
+    background-color: #2c2c2c;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+    transform: translateY(2px);
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background-color: #1e1e1e;
+    border-right: 1px solid #333;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    color: #1e1e1e;
+}
+
+/* Buttons section inside sidebar */
+.sidebar-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* New chat and delete chat button */
+#new-chat-btn,
+#delete-chat {
+    flex: 1;
+    padding: 8px 10px;
+    background-color: #343541;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#new-chat-btn:hover,
+#delete-chat:hover {
+    background-color: #444654;
+}
+
+/* Chat list styling */
+#chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual chat entry */
+.chat-entry {
+    background-color: #2e2f3a;
+    padding: 8px 12px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    color: #444;
+    transition: background-color 0.2s;
+}
+
+.chat-entry:hover {
+    background-color: #3d3f4a;
+}
+
+/* Image preview */
 #image-preview {
     margin-top: 10px;
     width: 100%;
@@ -107,93 +186,4 @@ button {
     max-width: 100%;
     border-radius: 8px;
     margin-top: 5px;
-}
-
-#delete-chat {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #5e5c5c;
-    /* light gray */
-    color: #333;
-    /* dark text */
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* subtle shadow */
-}
-
-#delete-chat:active {
-    background-color: #c9c9c9;
-    /* even darker when clicked */
-    transform: translateY(0);
-}
-
-/* 🌑 Dark Sidebar Container */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 220px;
-    height: 100%;
-    background-color: #1e1e1e;
-    /* Dark gray */
-    border-right: 1px solid #333;
-    padding: 20px 10px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    color: white;
-}
-
-/* ✨ New Chat Button (dark styled) */
-#new-chat-btn {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: #343541;
-    /* similar to ChatGPT sidebar button */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-#new-chat-btn:hover {
-    background-color: #444654;
-}
-
-/* 📃 Chat list section */
-#chat-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Chat entry buttons (each chat) */
-.chat-entry {
-    background-color: #2e2f3a;
-    padding: 8px 12px;
-    border: 1px solid #444;
-    border-radius: 6px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 14px;
-    color: white;
-    transition: background-color 0.2s;
-}
-
-.chat-entry:hover {
-    background-color: #3d3f4a;
-}
-
-/* Push main container right to make space for sidebar */
-.main-container {
-    margin-left: 240px;
-    /* width of sidebar + spacing */
-    padding: 20px;
 }

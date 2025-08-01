@@ -1,22 +1,25 @@
 //form = chat form
 //input = user input box
 //chatBox = container to show messages
+// Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('chat-form');
-    const input = document.getElementById('user-input');
-    const chatBox = document.getElementById('chat-box');
-    const deleteBtn = document.getElementById('delete-chat'); // 🔸 New: delete button reference
-    const newChatBtn = document.getElementById('new-chat-btn'); //new chat button
-    const chatList = document.getElementById('chat-list'); // 🔸 New: sidebar container
+    const form = document.getElementById('chat-form');         // form = chat form
+    const input = document.getElementById('user-input');       // input = user input box
+    const chatBox = document.getElementById('chat-box');       // chatBox = container to show messages
+    const deleteBtn = document.getElementById('delete-chat');  // delete button
+    const newChatBtn = document.getElementById('new-chat-btn');// new chat button
+    const chatList = document.getElementById('chat-list');     // sidebar with chat buttons
+    const imageInput = document.getElementById('image-input'); // New: image file input
 
     if (!form || !input || !chatBox) {
         console.error("Missing form, input, or chatBox in HTML.");
         return;
     }
 
-    let chats = [[]]; // 🆕 Stores all chats as arrays
+    let chats = [[]]; // Stores all chats as arrays of messages
     let currentChatIndex = 0;
 
+    // Show all messages in current chat
     function renderChat(index) {
         chatBox.innerHTML = '';
         chats[index].forEach(msg => {
@@ -28,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 
+    // Add button to sidebar for a chat
     function addSidebarButton(index) {
         const btn = document.createElement('button');
         btn.innerText = `Chat ${index + 1}`;
@@ -39,9 +43,26 @@ document.addEventListener('DOMContentLoaded', () => {
         chatList.appendChild(btn);
     }
 
-    // Add first sidebar button
-    addSidebarButton(0);
+    addSidebarButton(0); // Add button for the first chat
 
+    // 📎 Handle image upload via ➕ icon
+    if (imageInput) {
+        imageInput.addEventListener('change', () => {
+            const file = imageInput.files[0];
+            if (file) {
+                const fileMessage = document.createElement('div');
+                fileMessage.classList.add('message', 'user');
+                fileMessage.innerText = `📁 Uploaded: ${file.name}`;
+                chatBox.appendChild(fileMessage);
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Store image file info (not uploading for now, just displaying name)
+                chats[currentChatIndex].push({ role: 'user', content: `Uploaded file: ${file.name}` });
+            }
+        });
+    }
+
+    // 📨 On chat form submit
     form.addEventListener('submit', async (e) => {
         e.preventDefault(); // Prevent page reload
 
@@ -55,35 +76,33 @@ document.addEventListener('DOMContentLoaded', () => {
         chatBox.appendChild(userMessage);
         chatBox.style.display = 'block';
 
-        // Store user message
         chats[currentChatIndex].push({ role: 'user', content: userInput });
 
         try {
-            const response = await fetch('/api/chat', { //sends user message to backend using fetch
+            const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: userInput })// this is called server.js
+                body: JSON.stringify({ prompt: userInput }) // Send user input to backend
             });
 
-            const data = await response.json(); //gets ai response from the server
+            const data = await response.json(); // Get AI response
             console.log("AI Response:", data.response);
 
             const botMessage = document.createElement('div');
             botMessage.classList.add('message', 'bot');
-            botMessage.innerText = data.response; //shows ai reposne in chat
+            botMessage.innerText = data.response;
             chatBox.appendChild(botMessage);
 
-            // Store AI response
             chats[currentChatIndex].push({ role: 'bot', content: data.response });
 
-            chatBox.scrollTop = chatBox.scrollHeight; // scroll to then latest message
-            input.value = ''; // clear input box
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+            input.value = ''; // Clear input
         } catch (err) {
             console.error("Fetch failed:", err);
         }
     });
 
-    // 🗑️ Delete Chat button click handler (only new part)
+    // 🗑️ Handle delete chat button
     if (deleteBtn) {
         deleteBtn.addEventListener('click', async () => {
             try {
@@ -92,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (result.success) {
                     chats[currentChatIndex] = [];
-                    chatBox.innerHTML = ''; // Clear chat display
+                    chatBox.innerHTML = '';
                     console.log("🧹 Chat cleared successfully.");
                 }
             } catch (err) {
@@ -101,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ➕ New Chat button handler (adds new empty chat and sidebar button)
+    // ➕ New Chat button click
     if (newChatBtn) {
         newChatBtn.addEventListener('click', () => {
             chats.push([]);
