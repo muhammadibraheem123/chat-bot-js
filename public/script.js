@@ -86,14 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const data = await response.json(); // Get AI response
-            console.log("AI Response:", data.response);
+            console.log("AI Response:", data.text); // ✅ FIXED
 
             const botMessage = document.createElement('div');
             botMessage.classList.add('message', 'bot');
-            botMessage.innerText = data.response;
+            botMessage.innerText = data.text; // ✅ FIXED
             chatBox.appendChild(botMessage);
 
-            chats[currentChatIndex].push({ role: 'bot', content: data.response });
+            chats[currentChatIndex].push({ role: 'bot', content: data.text }); // ✅ FIXED
 
             chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
             input.value = ''; // Clear input
