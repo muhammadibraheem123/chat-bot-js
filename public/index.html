@@ -4,40 +4,54 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Chatbot</title>
+    <title>Ibraheem AI</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-buttons">
-            <button id="new-chat-btn">New Chat</button>
-            <button id="delete-chat">Delete Chat</button>
+        <div class="sidebar-header" id="new-chat-btn">
+            <img src="logo.png" alt="Logo" class="chat-logo" />
+            <span class="new-chat-label">New Chat</span>
         </div>
+
+        <div class="chat-section-label">Chats</div>
         <div id="chat-list"></div>
     </div>
 
-    <!-- Main content -->
+    <!-- Top Title (fixed beside sidebar) -->
+    <div class="top-bar">
+        Ibraheem AI
+    </div>
+
+    <!-- Main Content -->
     <div class="main-container">
-        <h1 class="heading">What's on your mind today?</h1>
-
-        <div class="chat-box" id="chat-box"></div>
-
-        <!-- Chat form with plus button inside -->
-        <form id="chat-form" enctype="multipart/form-data">
-            <label for="image-input" class="upload-icon">+</label>
-            <input type="file" id="image-input" accept="image/*" />
-            <input type="text" id="user-input" placeholder="Ask anything" autocomplete="off" required />
-            <button type="submit" aria-label="Send message">➤</button>
-        </form>
-
-        <!-- Image preview -->
-        <div id="image-preview" style="display: none;">
-            <p>📷 Image attached:</p>
-            <img id="preview-img" src="" alt="Preview" />
+        <!-- Chat messages -->
+        <div class="chat-box" id="chat-box">
+            <div class="welcome-message">What's on your mind today?</div>
         </div>
+
+        <!-- Chat form -->
+        <form id="chat-form" enctype="multipart/form-data">
+            <!-- Chat input -->
+            <div class="chat-input-area">
+
+                <!-- ✅ Image preview appears above input -->
+                <div id="image-preview" class="inline-image-preview" style="display: none;">
+                    <img id="preview-img" src="" alt="Preview" />
+                    <button id="remove-image-btn" class="remove-image">×</button>
+                </div>
+
+                <!-- ✅ Input row now includes upload icon + file input + text + send -->
+                <div class="input-row">
+                    <label for="image-input" class="upload-icon">+</label>
+                    <input type="file" id="image-input" accept="image/*" />
+                    <input type="text" id="user-input" placeholder="Ask anything..." autocomplete="off" required />
+                    <button type="submit" aria-label="Send message">➤</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <script src="script.js"></script>
